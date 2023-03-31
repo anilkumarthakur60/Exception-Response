@@ -1,0 +1,16 @@
+{
+  "name": "anil/exception-response",
+  "license": "MIT",
+  "autoload": {
+    "psr-4": {
+      "Anil\\ExceptionResponse\\": "src/"
+    }
+  },
+  "authors": [
+    {
+      "name": "Anil Kumar Thakur",
+      "email": "anilkumarthakur60@gmail.com"
+    }
+  ],
+  "require": {}
+}
