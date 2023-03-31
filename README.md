@@ -16,7 +16,8 @@ composer require anil/exception-response
 
 Use inside  Handler.php
 ```
-use Anil\ExceptionResponse\Exceptions\Handler as ExceptionHandler;
+
+use Anil\ExceptionResponse\Traits\ApiExceptionResponse;
 class Handler extends ExceptionHandler
 {
     use ApiExceptionResponse;
