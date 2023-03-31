@@ -121,7 +121,9 @@ trait ApiExceptionResponse
 
     protected function bindingResolutionExceptionResponse($exception): JsonResponse
     {
-        return $this->responses($exception);
+        return response()->json([
+            'message' => $exception->getMessage(),
+        ], 500) ;
     }
 
     protected function isQueryException($exception): bool
