@@ -16,12 +16,6 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 trait ApiExceptionResponse
 {
-
-    /**
-     * @param $request
-     * @param $exception
-     * @return JsonResponse
-     */
     protected function apiException($request, $exception): JsonResponse
     {
         if ($this->isModel($exception)) {
@@ -57,132 +51,108 @@ trait ApiExceptionResponse
             return $this->postTooLargeExceptionResponse($exception);
         }
 
-
         return parent::render($request, $exception);
     }
-
 
     protected function isModel($exception): bool
     {
         return $exception instanceof ModelNotFoundException;
     }
 
-
     protected function modelResponse($exception): JsonResponse
     {
-
         return $this->responses($exception);
     }
-
 
     protected function isMethod($exception): bool
     {
         return $exception instanceof MethodNotAllowedHttpException;
     }
 
-
     protected function methodResponse($exception): JsonResponse
     {
-
         return $this->responses($exception);
     }
-
 
     protected function isHttp($exception): bool
     {
         return $exception instanceof NotFoundHttpException;
     }
 
-
     protected function httpResponse($exception): JsonResponse
     {
         return $this->responses($exception);
     }
-
 
     protected function isBadMethod($exception): bool
     {
         return $exception instanceof BadMethodCallException;
     }
 
-
     protected function httpBadMethodResponse($exception): JsonResponse
     {
         return $this->responses($exception);
     }
-
 
     protected function isInvalidArgument($exception): bool
     {
         return $exception instanceof InvalidArgumentException;
     }
 
-
     protected function invalidArgumentSuppliedResponse($exception): JsonResponse
     {
         return $this->responses($exception);
     }
-
 
     protected function isTokenMissMatch($exception): bool
     {
         return $exception instanceof TokenMismatchException;
     }
 
-
     protected function tokenMissMatchResponse($exception): JsonResponse
     {
         return $this->responses($exception);
     }
-
 
     protected function isBindingResolutionException($exception): bool
     {
         return $exception instanceof BindingResolutionException;
     }
 
-
     protected function bindingResolutionExceptionResponse($exception): JsonResponse
     {
         return $this->responses($exception);
     }
-
 
     protected function isQueryException($exception): bool
     {
         return $exception instanceof QueryException;
     }
 
-
     protected function queryExceptionResponse($exception): JsonResponse
     {
         return $this->responses($exception);
     }
-
 
     protected function isUnauthorized($exception): bool
     {
         return $exception instanceof UnauthorizedException;
     }
 
-
     protected function unauthorizedExceptionResponse($exception): JsonResponse
     {
         return $this->responses($exception);
     }
-
 
     protected function isPostTooLargeException($exception): bool
     {
         return $exception instanceof PostTooLargeException;
     }
 
-
     protected function postTooLargeExceptionResponse($exception): JsonResponse
     {
         return $this->responses($exception);
     }
-
 
     private function responses($exception): JsonResponse
     {
@@ -190,5 +160,4 @@ trait ApiExceptionResponse
             'message' => $exception->getMessage(),
         ], $exception->getStatusCode());
     }
-
 }

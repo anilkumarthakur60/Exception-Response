@@ -9,15 +9,12 @@ class ApiExceptionProvider extends ServiceProvider
     public function boot()
     {
         $this->publishes([
-            __DIR__ . '/../config/exception.php' => config_path('exception.php'),
+            __DIR__.'/../config/exception.php' => config_path('exception.php'),
         ], 'config');
-        $this->mergeConfigFrom(__DIR__ . '/../config/exception.php', 'exception');
-
+        $this->mergeConfigFrom(__DIR__.'/../config/exception.php', 'exception');
     }
-
 
     public function register()
     {
     }
-
 }
