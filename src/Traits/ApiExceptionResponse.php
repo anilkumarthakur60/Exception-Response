@@ -11,7 +11,6 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Session\TokenMismatchException;
 use InvalidArgumentException;
 use Spatie\Permission\Exceptions\UnauthorizedException;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
@@ -26,36 +25,36 @@ trait ApiExceptionResponse
     protected function apiException($request, $exception): JsonResponse
     {
         if ($this->isModel($exception)) {
-            return $this->ModelResponse($exception);
+            return $this->modelResponse($exception);
         }
         if ($this->isMethod($exception)) {
-            return $this->MethodResponse($exception);
+            return $this->methodResponse($exception);
         }
         if ($this->isHttp($exception)) {
-            return $this->HttpResponse($exception);
+            return $this->httpResponse($exception);
         }
         if ($this->isBadMethod($exception)) {
-            return $this->HttpBadMethodResponse($exception);
+            return $this->httpBadMethodResponse($exception);
         }
 
         if ($this->isInvalidArgument($exception)) {
-            return $this->InvalidArgumentSuppliedResponse($exception);
+            return $this->invalidArgumentSuppliedResponse($exception);
         }
         if ($this->isTokenMissMatch($exception)) {
-            return $this->TokenMissMatchResponse($exception);
+            return $this->tokenMissMatchResponse($exception);
         }
         if ($this->isBindingResolutionException($exception)) {
-            return $this->BindingResolutionExceptionResponse($exception);
+            return $this->bindingResolutionExceptionResponse($exception);
         }
 
         if ($this->isQueryException($exception)) {
-            return $this->QueryExceptionResponse($exception);
+            return $this->queryExceptionResponse($exception);
         }
         if ($this->isUnauthorized($exception)) {
-            return $this->UnauthorizedExceptionResponse($exception);
+            return $this->unauthorizedExceptionResponse($exception);
         }
         if ($this->isPostTooLargeException($exception)) {
-            return $this->PostTooLargeExceptionResponse($exception);
+            return $this->postTooLargeExceptionResponse($exception);
         }
 
         return parent::render($request, $exception);
@@ -68,10 +67,10 @@ trait ApiExceptionResponse
     }
 
 
-    protected function ModelResponse($exception): JsonResponse
+    protected function modelResponse($exception): JsonResponse
     {
 
-        return $this->responses($exception, Response::HTTP_NOT_FOUND);
+        return $this->responses($exception);
     }
 
 
@@ -81,10 +80,10 @@ trait ApiExceptionResponse
     }
 
 
-    protected function MethodResponse($exception): JsonResponse
+    protected function methodResponse($exception): JsonResponse
     {
 
-        return $this->responses($exception, Response::HTTP_METHOD_NOT_ALLOWED);
+        return $this->responses($exception);
     }
 
 
@@ -94,9 +93,9 @@ trait ApiExceptionResponse
     }
 
 
-    protected function HttpResponse($exception): JsonResponse
+    protected function httpResponse($exception): JsonResponse
     {
-        return $this->responses($exception, Response::HTTP_NOT_FOUND);
+        return $this->responses($exception);
     }
 
 
@@ -106,7 +105,7 @@ trait ApiExceptionResponse
     }
 
 
-    protected function HttpBadMethodResponse($exception): JsonResponse
+    protected function httpBadMethodResponse($exception): JsonResponse
     {
         return $this->responses($exception);
     }
@@ -118,7 +117,7 @@ trait ApiExceptionResponse
     }
 
 
-    protected function InvalidArgumentSuppliedResponse($exception): JsonResponse
+    protected function invalidArgumentSuppliedResponse($exception): JsonResponse
     {
         return $this->responses($exception);
     }
@@ -130,9 +129,9 @@ trait ApiExceptionResponse
     }
 
 
-    protected function TokenMissMatchResponse($exception): JsonResponse
+    protected function tokenMissMatchResponse($exception): JsonResponse
     {
-        return $this->responses($exception, Response::HTTP_UNAUTHORIZED);
+        return $this->responses($exception);
     }
 
 
@@ -142,9 +141,9 @@ trait ApiExceptionResponse
     }
 
 
-    protected function BindingResolutionExceptionResponse($exception): JsonResponse
+    protected function bindingResolutionExceptionResponse($exception): JsonResponse
     {
-        return $this->responses($exception, Response::HTTP_INTERNAL_SERVER_ERROR);
+        return $this->responses($exception);
     }
 
 
@@ -154,9 +153,9 @@ trait ApiExceptionResponse
     }
 
 
-    protected function QueryExceptionResponse($exception): JsonResponse
+    protected function queryExceptionResponse($exception): JsonResponse
     {
-        return $this->responses($exception, Response::HTTP_INTERNAL_SERVER_ERROR);
+        return $this->responses($exception);
     }
 
 
@@ -166,9 +165,9 @@ trait ApiExceptionResponse
     }
 
 
-    protected function UnauthorizedExceptionResponse($exception): JsonResponse
+    protected function unauthorizedExceptionResponse($exception): JsonResponse
     {
-        return $this->responses($exception, Response::HTTP_FORBIDDEN);
+        return $this->responses($exception);
     }
 
 
@@ -178,22 +177,17 @@ trait ApiExceptionResponse
     }
 
 
-    protected function PostTooLargeExceptionResponse($exception): JsonResponse
+    protected function postTooLargeExceptionResponse($exception): JsonResponse
     {
-        return $this->responses($exception, Response::HTTP_REQUEST_ENTITY_TOO_LARGE);
+        return $this->responses($exception);
     }
 
 
-    private function responses($exception, $code = Response::HTTP_BAD_REQUEST): JsonResponse
+    private function responses($exception): JsonResponse
     {
         return response()->json([
             'message' => $exception->getMessage(),
-//            'code' => $exception->getCode(),
-            'code' => $exception->getStatusCode(),
-
-            //            'file' => $exception->getFile(),
-            //            'line' => $exception->getLine(),
-        ], $code);
+        ], $exception->getStatusCode());
     }
 
 }
