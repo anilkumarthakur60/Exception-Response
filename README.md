@@ -10,7 +10,7 @@ Overall, this code appears to be part of an error handling system that different
 ##
 # Installation
 ## Composer
-```
+```apacheconf
 composer require anil/exception-response
 ```
 
