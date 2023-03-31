@@ -57,6 +57,7 @@ trait ApiExceptionResponse
             return $this->postTooLargeExceptionResponse($exception);
         }
 
+
         return parent::render($request, $exception);
     }
 
