@@ -123,7 +123,7 @@ trait ApiExceptionResponse
     {
         return response()->json([
             'message' => $exception->getMessage(),
-        ], 500) ;
+        ], 500);
     }
 
     protected function isQueryException($exception): bool

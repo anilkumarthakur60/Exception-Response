@@ -21,6 +21,8 @@ class ComposerStaticInit73e96f26adfc2197d1f55fa4649061ed
     );
 
     public static $classMap = array (
+        'Anil\\ExceptionResponse\\Providers\\ApiExceptionProvider' => __DIR__ . '/../..' . '/src/Providers/ApiExceptionProvider.php',
+        'Anil\\ExceptionResponse\\Traits\\ApiExceptionResponse' => __DIR__ . '/../..' . '/src/Traits/ApiExceptionResponse.php',
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
     );
 

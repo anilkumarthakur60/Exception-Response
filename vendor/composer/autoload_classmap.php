@@ -6,5 +6,7 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'Anil\\ExceptionResponse\\Providers\\ApiExceptionProvider' => $baseDir . '/src/Providers/ApiExceptionProvider.php',
+    'Anil\\ExceptionResponse\\Traits\\ApiExceptionResponse' => $baseDir . '/src/Traits/ApiExceptionResponse.php',
     'Composer\\InstalledVersions' => $vendorDir . '/composer/InstalledVersions.php',
 );

@@ -6,11 +6,24 @@
       "Anil\\ExceptionResponse\\": "src/"
     }
   },
+  "require": {},
   "authors": [
     {
       "name": "Anil Kumar Thakur",
       "email": "anilkumarthakur60@gmail.com"
     }
   ],
-  "require": {}
+  "extra": {
+    "laravel": {
+      "providers": [
+        "Anil\\ExceptionResponse\\Providers\\ApiExceptionProvider"
+      ]
+    }
+  },
+  "config": {
+    "optimize-autoloader": true,
+    "sort-packages": true
+  },
+  "minimum-stability": "stable",
+  "prefer-stable": true
 }
